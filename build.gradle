@@ -1,27 +1,27 @@
-buildscript {
-    ext {
-        springBootVersion = '2.1.7.RELEASE'
-    }
-    repositories {
-        mavenCentral()
-    }
-    dependencies {
-        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
-    }
-}
-
 
 // newer method of applying plugins - must be available in gradle plugin repository
 plugins {
     id 'java'
-    // id 'org.springframework.boot' version '2.1.7.RELEASE' --> new way?
+    id 'org.springframework.boot' version '2.6.3'
+    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
 }
 
 // old way of applying plugins
-apply plugin: 'java'
-apply plugin: 'eclipse'
-apply plugin: 'org.springframework.boot'
-apply plugin: 'io.spring.dependency-management'
+//buildscript {
+//    ext {
+//        springBootVersion = '2.6.3.RELEASE'
+//    }
+//    repositories {
+//        mavenCentral()
+//    }
+//    dependencies {
+//        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+//    }
+//}
+//apply plugin: 'java'
+//apply plugin: 'eclipse'
+//apply plugin: 'org.springframework.boot'
+//apply plugin: 'io.spring.dependency-management'
 
 group 'org.example'
 version '1.0-SNAPSHOT'
@@ -31,18 +31,15 @@ repositories {
 }
 
 dependencies {
-    // deprecated
-//    compileOnly('org.springframework.boot:spring-boot-starter-web')
-//    testCompileOnly('org.springframework.boot:spring-boot-starter-test')
-
     implementation('org.springframework.boot:spring-boot-starter-web')
+    implementation 'junit:junit:4.13.1'
+    annotationProcessor('org.projectlombok:lombok')
+    implementation('org.projectlombok:lombok')
+
     testImplementation('org.springframework.boot:spring-boot-starter-test')
 
-
-//    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
-//    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
 }
-//
+
 //test {
 //    useJUnitPlatform()
 //}
