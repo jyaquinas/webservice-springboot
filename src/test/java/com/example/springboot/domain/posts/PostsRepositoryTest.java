@@ -1,6 +1,5 @@
 package com.example.springboot.domain.posts;
 
-import org.assertj.core.error.AssertJMultipleFailuresError;
 import org.junit.After;
 import org.junit.Test;
 import org.junit.runner.RunWith;
