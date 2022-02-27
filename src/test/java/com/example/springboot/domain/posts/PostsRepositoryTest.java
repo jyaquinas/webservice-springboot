@@ -48,7 +48,7 @@ public class PostsRepositoryTest {
 
     @Test
     public void register_baseTimeEntity() {
-        LocalDateTime now = LocalDateTime.of(2022, 02, 27, 21, 41, 0);
+        LocalDateTime now = LocalDateTime.of(2022, 2, 27, 21, 41, 0);
         postsRepository.save(Posts.builder()
                 .title("title")
                 .content("content")
@@ -63,6 +63,6 @@ public class PostsRepositoryTest {
                 ", modifiedDate=" + posts.getModifiedDate());
 
         assertThat(posts.getCreatedDate()).isAfter(now);
-        assertThat(posts.getModifiedDate().isAfter(now));
+        assertThat(posts.getModifiedDate()).isAfter(now);
     }
 }
