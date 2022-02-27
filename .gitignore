@@ -2,5 +2,6 @@
 /.gradle/
 .idea
 /build/
+build
 !/**/src/**/bin
 !/**/src/**/build
