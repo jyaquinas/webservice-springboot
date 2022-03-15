@@ -13,8 +13,8 @@ import javax.persistence.*;
 public class Posts extends BaseTimeEntity {
 
     @Id // specifies PK field
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     // specifies rule for PK generation. IDENTITY -> auto increment option
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(length = 500, nullable = false)

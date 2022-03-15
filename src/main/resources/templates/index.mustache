@@ -3,9 +3,23 @@
 
 <h1>Web Service With Spring Boot V2</h1>
 <div class="col-md-12">
-    <div class="col-md-6">
-        <a href="/posts/save" role="button"
-            class="btn btn-primary">Write Post</a>
+
+    <div class="row">
+        <div class="col-md-6">
+            <a href="/posts/save" role="button"
+                class="btn btn-primary">Write Post</a>
+            {{#userName}}
+                Logged in as: <span id="user">{{userName}}</span>
+                <!-- /logout provided by SecurityConfig by default, but can be customized -->
+                <a href="/logout" class="btn btn-info active" role="button">Logout</a>
+            {{/userName}}
+            <!-- if userName does not exist -->
+            {{^userName}}
+                <!-- login url below is provided by default in Spring Security -->
+                <a href="/oauth2/authorization/google" class="btn btn-success active" role="button">Google Login</a>
+                <a href="/oauth2/authorization/naver" class="btn btn-secondary active" role="button">Naver Login</a>
+            {{/userName}}
+        </div>
     </div>
     <br>
 

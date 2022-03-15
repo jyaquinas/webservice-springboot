@@ -1,5 +1,7 @@
 package com.example.springboot.web;
 
+import com.example.springboot.config.auth.LoginUser;
+import com.example.springboot.config.auth.dto.SessionUser;
 import com.example.springboot.service.posts.PostsService;
 import com.example.springboot.web.dto.PostsResponseDto;
 import lombok.RequiredArgsConstructor;
@@ -8,16 +10,26 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import javax.servlet.http.HttpSession;
+
 @RequiredArgsConstructor
 @Controller
 public class IndexController {
 
     private final PostsService postsService;
+    private final HttpSession httpSession;
 
     @GetMapping("/")
-    public String index(Model model){
+    public String index(Model model, @LoginUser SessionUser user){
         // send list of Posts through the model so that it can be used by server template engine
         model.addAttribute("posts", postsService.findAllDesc());
+
+        // Get user through @LoginUser instead
+        // SessionUser user = (SessionUser) httpSession.getAttribute("user");
+
+        if(user !=null){
+            model.addAttribute("userName", user.getName());
+        }
 
         // directory: src/main/resources/templates
         // view resolver looks for files with .mustache extension

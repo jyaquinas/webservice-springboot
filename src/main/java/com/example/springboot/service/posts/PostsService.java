@@ -56,6 +56,6 @@ public class PostsService {
 
         postsRepository.delete(posts);
         // can also delete by id
-//        postsRepository.deleteById(id);
+        // postsRepository.deleteById(id);
     }
 }
