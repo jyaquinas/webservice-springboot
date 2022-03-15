@@ -6,3 +6,4 @@ build
 !/**/src/**/bin
 !/**/src/**/build
 application-oauth.properties
+application-oauth.yml
