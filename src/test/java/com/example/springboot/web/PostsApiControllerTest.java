@@ -29,6 +29,8 @@ import static org.assertj.core.api.InstanceOfAssertFactories.list;
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringRunner.class)
@@ -130,5 +132,45 @@ public class PostsApiControllerTest {
         List<Posts> all = postsRepository.findAll();
         assertThat(all.get(0).getTitle()).isEqualTo(expectedTitle);
         assertThat(all.get(0).getContent()).isEqualTo(expectedContent);
+    }
+
+    @Test
+    @WithMockUser(roles="USER")
+    public void Get_post() throws Exception{
+        String title = "title";
+        String content = "content";
+        String author = "author";
+        Posts savedPosts = postsRepository.save(Posts.builder()
+                .title(title)
+                .content(content)
+                .author(author)
+                .build());
+        Long postId = savedPosts.getId();
+
+        String url = "http://localhost:" + port + "/api/v1/posts/" + postId;
+
+        mvc.perform(get(url)).andExpect(status().isOk());
+
+        List<Posts> all = postsRepository.findAll();
+        assertThat(all.get(0).getTitle()).isEqualTo(title);
+        assertThat(all.get(0).getContent()).isEqualTo(content);
+        assertThat(all.get(0).getAuthor()).isEqualTo(author);
+    }
+
+    @Test
+    @WithMockUser(roles="USER")
+    public void Delete_post() throws Exception{
+        Posts savedPosts = postsRepository.save(Posts.builder()
+                .title("title")
+                .content("content")
+                .author("author")
+                .build());
+        Long postId = savedPosts.getId();
+
+        String url = "http://localhost:" + port + "/api/v1/posts/" + postId;
+
+        mvc.perform(delete(url)).andExpect(status().isOk());
+        List<Posts> all = postsRepository.findAll();
+        assertThat(all.stream().count()).isEqualTo(0);
     }
 }
