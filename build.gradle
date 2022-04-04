@@ -1,4 +1,3 @@
-
 // newer method of applying plugins - must be available in gradle plugin repository
 plugins {
     id 'java'
@@ -44,6 +43,25 @@ dependencies {
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 
 }
+
+jar {
+    manifest {
+        attributes(
+                'Main-Class': 'com.example.springboot.Application'
+        )
+    }
+}
+
+//tasks.jar {
+//    manifest.attributes["Main-Class"] = "com.example.springboot.Application"
+//}
+
+//jar {
+//    manifest {
+//        attributes('Main-Class': "com.example.springboot.Application")
+//    }
+//    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+//}
 
 //test {
 //    useJUnitPlatform()
