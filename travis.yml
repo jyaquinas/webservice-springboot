@@ -1,0 +1,23 @@
+language: java
+jdk:
+  - openjdk11
+
+# Select branch for executing CI
+branches:
+  only:
+    - master
+
+# Travis CI server home
+cache: # caching location for dependencies (avoid redownloading existing dependencies)
+  directories:
+    - '/$HOME/.m2/repository'
+    - '$HOME/.gradle'
+
+# command to be executed when branch is pushed
+script: "./gradlew clean build"
+
+# Email notification after CI execution
+notifications:
+  emails:
+    recipients:
+      - 'jythomaskim@gmail.com'
