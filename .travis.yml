@@ -16,9 +16,31 @@ cache: # caching location for dependencies (avoid redownloading existing depende
 # command to be executed when branch is pushed
 script: "./gradlew clean build"
 
+# execute before deploy command
+before_deploy:
+  # zip (CodeDeploy doesn't recognize jar files)
+  - zip -r webservice-springboot *
+  - mkdir -p deploy
+  - mv webservice-springboot.zip deploy/webservice-springboot.zip
+
+deploy:
+  - provider: s3
+    access_key_id: $AWS_ACCESS_KEY
+    secret_access_key: $AWS_SECRET_KEY
+
+    bucket: webservice-springboot-build
+    region: ap-northeast-2
+    skip_cleanup: true
+    acl: private
+
+    # directory created under before_deploy
+    # only files in this directory get sent to s3
+    local_dir: deploy
+    wait-until-deployed: true
 
 # Email notification after CI execution
 notifications:
-  emails:
+  email:
     recipients:
       - 'jythomaskim@gmail.com'
+
