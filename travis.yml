@@ -16,6 +16,7 @@ cache: # caching location for dependencies (avoid redownloading existing depende
 # command to be executed when branch is pushed
 script: "./gradlew clean build"
 
+
 # Email notification after CI execution
 notifications:
   emails:
