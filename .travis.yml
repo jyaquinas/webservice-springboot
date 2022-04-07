@@ -19,10 +19,20 @@ script: "./gradlew clean build"
 
 # execute before deploy command
 before_deploy:
-  # zip (CodeDeploy doesn't recognize jar files)
-  - zip -r webservice-springboot *
-  - mkdir -p deploy
-  - mv webservice-springboot.zip deploy/webservice-springboot.zip
+    # directory for storing files that will be zipped
+  - mkdir -p before-deploy
+  - cp scripts/*.sh before-deploy/
+  - cp appspect.yml before-deploy/
+  - cp build/libs/*.jar before-deploy/
+    # zip file and move to deploy folder
+  - cd before-deploy && zip -r before-deploy *
+  - cd ../ && mkdir -p deploy
+  - mv before-deploy/before-deploy.zip deploy/webservice-springboot.zip
+
+#  # zip (CodeDeploy doesn't recognize jar files)
+#  - zip -r webservice-springboot *
+#  - mkdir -p deploy
+#  - mv webservice-springboot.zip deploy/webservice-springboot.zip
 
 deploy:
   - provider: s3
@@ -33,8 +43,8 @@ deploy:
     skip_cleanup: true
     region: ap-northeast-2
     acl: private
-    # directory created under before_deploy
-    # only files in this directory get sent to s3
+    # directory created in before_deploy
+    # (only files in this directory get sent to s3)
     local_dir: deploy
     wait_until_deployed: true
 

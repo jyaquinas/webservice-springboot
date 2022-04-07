@@ -8,3 +8,17 @@ files:
     destination: /home/ec2-user/app/step2/zip/
     overwrite: yes
 
+# grant ec2-user permissions to all files sent by CodeDeploy (to EC2)
+permissions:
+  - object: /
+    pattern: "**"
+    owner: ec2-user
+    group: ec2-user
+
+# Specify action during deployment
+hooks:
+  # execute deploy.sh as ec2-user
+  ApplicationStart:
+    - location: deploy.sh
+      timeout: 60
+      runas: ec2-user
