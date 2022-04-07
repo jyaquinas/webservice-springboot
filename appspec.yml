@@ -5,6 +5,6 @@ files:
     # specify files to send to destination (/ sends everything)
   - source: /
     # specify the location where deploy files will be received
-    destination: /home/ec2-users/app/step2/zip/
+    destination: /home/ec2-user/app/step2/zip
     overwrite: yes
 
