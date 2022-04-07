@@ -35,7 +35,7 @@ echo "> Executing $JAR_NAME"
 
 nohup java -jar \
   -Dspring.config.location=classpath:/application.yml,\
-  classpath:application-real.yml,\
+  classpath:/application-real.yml,\
   /home/ec2-user/app/application-oauth.yml,\
   /home/ec2-user/app/application-real-db.yml \
   -Dspring.profiles.active=real \
