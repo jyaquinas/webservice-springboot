@@ -1,3 +1,4 @@
+# Travis Settings
 language: java
 jdk:
   - openjdk11
@@ -27,15 +28,27 @@ deploy:
   - provider: s3
     access_key_id: $AWS_ACCESS_KEY
     secret_access_key: $AWS_SECRET_KEY
-
+    # AWS S3 bucket
     bucket: webservice-springboot-build
     region: ap-northeast-2
     skip_cleanup: true
     acl: private
-
     # directory created under before_deploy
     # only files in this directory get sent to s3
     local_dir: deploy
+    wait-until-deployed: true
+
+  - provider: codedeploy
+    access_key_id: $AWS_ACCESS_KEY
+    secret_access_key: $AWS_SECRET_KEY
+    bucket: webservice-springboot-build
+    key: webservice-springboot.zip
+    bundle_type: zip
+    # Name of AWS CodeDeploy application
+    application: webservice-springboot
+    # defined in AWS CodeDeploy deployment group
+    deployment_group: webservice-springboot-group
+    region: ap-northeast-2
     wait-until-deployed: true
 
 # Email notification after CI execution
