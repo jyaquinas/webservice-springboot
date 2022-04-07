@@ -31,12 +31,11 @@ deploy:
     # AWS S3 bucket
     bucket: webservice-springboot-build
     region: ap-northeast-2
-    skip_cleanup: true
     acl: private
     # directory created under before_deploy
     # only files in this directory get sent to s3
     local_dir: deploy
-    wait-until-deployed: true
+    wait_until_deployed: true
 
   - provider: codedeploy
     access_key_id: $AWS_ACCESS_KEY
@@ -49,7 +48,7 @@ deploy:
     # defined in AWS CodeDeploy deployment group
     deployment_group: webservice-springboot-group
     region: ap-northeast-2
-    wait-until-deployed: true
+    wait_until_deployed: true
 
 # Email notification after CI execution
 notifications:
