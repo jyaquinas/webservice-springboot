@@ -30,6 +30,7 @@ deploy:
     secret_access_key: $AWS_SECRET_KEY
     # AWS S3 bucket
     bucket: webservice-springboot-build
+    skip_cleanup: true
     region: ap-northeast-2
     acl: private
     # directory created under before_deploy
