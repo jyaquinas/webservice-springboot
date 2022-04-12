@@ -25,5 +25,6 @@ public class ProfileController {
                 .filter(realProfiles::contains)
                 .findAny()
                 .orElse(defaultProfile);
+
     }
 }
