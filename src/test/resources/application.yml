@@ -19,8 +19,8 @@ spring:
     jdbc-url: jdbc:h2:mem:testdb;MODE=MYSQL
     username: sa
 
-  profiles:
-    include: oauth
+#  profiles:
+#    include: oauth
 
   # stores session to jdbc instead of default tomcat - automatically creates table in DB
   session:
