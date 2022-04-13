@@ -5,7 +5,7 @@ files:
     # specify files to send to destination (/ sends everything)
   - source: /
     # specify the location where deploy files will be received
-    destination: /home/ec2-user/app/step2/zip/
+    destination: /home/ec2-user/app/step3/zip/
     overwrite: yes
 
 # grant ec2-user permissions to all files sent by CodeDeploy (to EC2)
@@ -17,8 +17,18 @@ permissions:
 
 # Specify action during deployment
 hooks:
-  # execute deploy.sh as ec2-user
+  AfterInstall:
+    # stop process that isn't connected to nginx
+    - location: stop.sh
+      timeout: 60
+      runas: ec2-user
   ApplicationStart:
-    - location: deploy.sh
+    # start program on port that isn't connected to nginx
+    - location: start.sh
+      timeout: 60
+      runas: ec2-user
+  ValidateService:
+    # Check if new program has been started correctly
+    - location: health.sh
       timeout: 60
       runas: ec2-user
